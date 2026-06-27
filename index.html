@@ -137,7 +137,7 @@
                 </div>
                 <div class="relative group cursor-pointer" onclick="App.Router.navigate('profile')">
                     <div class="w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-ringMove via-accent to-ringStand">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=ProGamer&backgroundColor=18181b" alt="Avatar" class="w-full h-full rounded-full border-2 border-black object-cover">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=ProGamer&backgroundColor=18181b" id="header-avatar" alt="Avatar" class="w-full h-full rounded-full border-2 border-black object-cover">
                     </div>
                     <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-zinc-800 rounded-full border-2 border-black flex items-center justify-center text-[9px] font-bold text-ringExercise">
                         <span id="header-level">12</span>
@@ -354,6 +354,21 @@
 
             <!-- ================= VIEW: PROFILE ================= -->
             <section id="view-profile" class="view-section pb-32 pt-[120px] px-4 space-y-6">
+                <!-- User Info (New) -->
+                <div class="glass-panel rounded-[32px] p-6">
+                    <div class="flex items-center gap-4">
+                        <div class="relative w-20 h-20 flex-shrink-0 rounded-full bg-zinc-800 overflow-hidden border-2 border-accent">
+                            <img id="profile-avatar-preview" src="https://api.dicebear.com/7.x/avataaars/svg?seed=ProGamer&backgroundColor=18181b" class="w-full h-full object-cover">
+                            <input type="file" id="inp-avatar" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" onchange="App.Data.previewAvatar(event)">
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-xs text-zinc-400 font-bold uppercase mb-1">Display Name</div>
+                            <input type="text" id="inp-name" class="bg-transparent text-2xl font-black text-white w-full border-b border-zinc-700 focus:border-accent focus:outline-none py-1 placeholder-zinc-600" placeholder="Your Name">
+                            <div class="text-[10px] text-zinc-500 mt-1">Tap image to change avatar</div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Biometrics -->
                 <div class="grid grid-cols-2 gap-4">
                     <div class="glass-panel rounded-[24px] p-5">
@@ -522,7 +537,7 @@
         
         const App = {
             State: {
-                user: { weight: 70, height: 175, goalSteps: 10000, goalCal: 500 },
+                user: { name: 'Athlete', avatar: '', weight: 70, height: 175, goalSteps: 10000, goalCal: 500 },
                 workouts: [],
                 health: { water: 0 }, // Simplified for demo
                 activeTab: 'dashboard'
@@ -564,7 +579,11 @@
                     const tx = App.DB.db.transaction(['workouts', 'settings'], 'readonly');
                     
                     tx.objectStore('settings').get('user').onsuccess = (e) => {
-                        if(e.target.result) App.State.user = e.target.result;
+                        if(e.target.result) {
+                            App.State.user = e.target.result;
+                            document.getElementById('header-title').textContent = App.State.user.name || 'Athlete';
+                            if(App.State.user.avatar) document.getElementById('header-avatar').src = App.State.user.avatar;
+                        }
                     };
                     
                     tx.objectStore('workouts').getAll().onsuccess = (e) => {
@@ -631,7 +650,7 @@
                 
                 if(tabId === 'dashboard') {
                     header.style.transform = 'translateY(0)';
-                    title.textContent = "Athlete";
+                    title.textContent = App.State.user.name || "Athlete";
                     sub.textContent = "Summary";
                     App.UI.renderDashboard();
                 } else if(tabId === 'discover') {
@@ -724,7 +743,7 @@
                 const dist = w.distanceKm > 0 ? `${w.distanceKm.toFixed(2)} km` : `${Math.round(w.calories)} kcal`;
 
                 return `
-                    <div class="glass-panel rounded-2xl p-4 flex items-center justify-between hover:bg-white/5 transition-colors">
+                    <div class="glass-panel rounded-2xl p-4 flex items-center justify-between hover:bg-white/5 transition-colors group">
                         <div class="flex items-center gap-4">
                             <div class="w-10 h-10 rounded-full bg-${color}/10 text-${color} flex items-center justify-center border border-${color}/20">
                                 <i class="fa-solid ${icon}"></i>
@@ -734,9 +753,14 @@
                                 <div class="text-xs text-zinc-400">${date}</div>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <div class="font-bold font-mono">${dist}</div>
-                            <div class="text-xs text-zinc-500">${time}</div>
+                        <div class="flex items-center gap-4">
+                            <div class="text-right">
+                                <div class="font-bold font-mono">${dist}</div>
+                                <div class="text-xs text-zinc-500">${time}</div>
+                            </div>
+                            <button onclick="App.Social.shareWorkout(${w.timestamp})" class="w-8 h-8 rounded-full bg-zinc-800 text-zinc-300 flex items-center justify-center hover:bg-accent hover:text-white transition-colors active:scale-90">
+                                <i class="fa-solid fa-share-nodes text-xs"></i>
+                            </button>
                         </div>
                     </div>
                 `;
@@ -807,6 +831,10 @@
                 });
             },
             updateProfileInputs: function() {
+                document.getElementById('inp-name').value = App.State.user.name || 'Athlete';
+                if(App.State.user.avatar) {
+                    document.getElementById('profile-avatar-preview').src = App.State.user.avatar;
+                }
                 document.getElementById('inp-weight').value = App.State.user.weight;
                 document.getElementById('inp-height').value = App.State.user.height;
                 document.getElementById('inp-goal-steps').value = App.State.user.goalSteps;
@@ -1066,19 +1094,44 @@
            5. DATA & SETTINGS MANAGEMENT
            ========================================== */
         App.Data = {
+            tempAvatar: null,
+            previewAvatar: function(e) {
+                const file = e.target.files[0];
+                if(file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        App.Data.tempAvatar = event.target.result;
+                        document.getElementById('profile-avatar-preview').src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            },
             addWater: function() {
                 App.State.health.water += 0.25; // add 250ml
                 document.getElementById('dash-water').innerHTML = `${App.State.health.water.toFixed(1)}<span class="text-sm font-sans text-zinc-500">L</span>`;
                 App.Router.showToast("Hydration", "Added 250ml of water.");
             },
             saveProfile: function() {
+                const n = document.getElementById('inp-name').value || 'Athlete';
                 const w = parseFloat(document.getElementById('inp-weight').value) || 70;
                 const h = parseFloat(document.getElementById('inp-height').value) || 175;
                 const gs = parseInt(document.getElementById('inp-goal-steps').value) || 10000;
                 const gc = parseInt(document.getElementById('inp-goal-cal').value) || 500;
                 
-                App.State.user = { weight: w, height: h, goalSteps: gs, goalCal: gc };
+                App.State.user = { 
+                    name: n, 
+                    avatar: App.Data.tempAvatar || App.State.user.avatar, 
+                    weight: w, height: h, goalSteps: gs, goalCal: gc 
+                };
+                
                 App.DB.saveSettings(App.State.user);
+                
+                // Update header immediately
+                document.getElementById('header-title').textContent = n;
+                if(App.State.user.avatar) {
+                    document.getElementById('header-avatar').src = App.State.user.avatar;
+                }
+                
                 App.Router.showToast("Success", "Profile updated.");
             },
             exportCSV: function() {
@@ -1105,6 +1158,100 @@
                         App.Router.showToast("Reset", "Application factory reset successful.");
                     };
                 }
+            }
+        };
+
+        /* ==========================================
+           SOCIAL & STORY GENERATOR
+           ========================================== */
+        App.Social = {
+            shareWorkout: function(timestamp) {
+                const w = App.State.workouts.find(x => x.timestamp === timestamp);
+                if(!w) return;
+
+                App.Router.showToast("Generating Story...", "Creating your image.");
+
+                // Create a canvas to draw the Instagram/WhatsApp Story image (9:16 aspect ratio)
+                const canvas = document.createElement('canvas');
+                canvas.width = 1080;
+                canvas.height = 1920;
+                const ctx = canvas.getContext('2d');
+
+                // Draw Dark Background
+                ctx.fillStyle = '#09090b';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Add Neon Gradient Overlay
+                const gradient = ctx.createLinearGradient(0, 0, 1080, 1920);
+                gradient.addColorStop(0, '#8b5cf6'); // Accent Purple
+                gradient.addColorStop(1, '#000000');
+                ctx.fillStyle = gradient;
+                ctx.globalAlpha = 0.4;
+                ctx.fillRect(0,0, canvas.width, canvas.height);
+                ctx.globalAlpha = 1.0;
+
+                // Draw Title
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 70px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('FITTRACK PRO ULTRA', 540, 250);
+
+                // Draw Workout Type
+                ctx.fillStyle = '#a4ff00'; // Neon Green
+                ctx.font = '900 140px sans-serif';
+                ctx.fillText(w.type.toUpperCase(), 540, 550);
+
+                // Draw Date
+                const dateStr = new Date(w.timestamp).toLocaleDateString(undefined, {weekday: 'long', month:'long', day:'numeric'});
+                ctx.fillStyle = '#a1a1aa';
+                ctx.font = '50px sans-serif';
+                ctx.fillText(dateStr, 540, 650);
+
+                // Draw Main Metric
+                ctx.fillStyle = '#ffffff';
+                const mainMetric = w.distanceKm > 0 ? `${w.distanceKm.toFixed(2)} KM` : `${Math.round(w.calories)} KCAL`;
+                ctx.font = '900 220px sans-serif';
+                ctx.fillText(mainMetric, 540, 1000);
+
+                // Draw Time
+                const mins = Math.floor(w.duration / 60);
+                const secs = w.duration % 60;
+                ctx.font = 'bold 100px sans-serif';
+                ctx.fillStyle = '#00d6ff'; // Cyan
+                ctx.fillText(`⏱ ${mins}M ${secs}S`, 540, 1300);
+
+                // Draw Username
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'italic 50px sans-serif';
+                ctx.fillText(`Completed by ${App.State.user.name || 'Athlete'}`, 540, 1750);
+
+                // Export and Trigger Share/Download
+                canvas.toBlob(async (blob) => {
+                    const file = new File([blob], 'workout_story.png', { type: 'image/png' });
+                    
+                    // Use Web Share API if supported (works beautifully on mobile devices)
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        try {
+                            await navigator.share({
+                                title: 'My Workout',
+                                text: 'Just crushed my workout on FitTrack Pro! 💪',
+                                files: [file]
+                            });
+                            App.Router.showToast("Success", "Shared successfully!");
+                        } catch(e) {
+                            console.log('Share canceled or failed');
+                        }
+                    } else {
+                        // Fallback: Download image for manual upload (Desktop or unsupported browsers)
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `FitTrack_${w.type}_Story.png`;
+                        a.click();
+                        App.Router.showToast("Saved!", "Story image downloaded. Upload it to Insta/WhatsApp!");
+                        URL.revokeObjectURL(url);
+                    }
+                });
             }
         };
 
