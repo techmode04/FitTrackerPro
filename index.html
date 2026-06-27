@@ -410,6 +410,68 @@
                         <span class="text-sm font-medium"><i class="fa-solid fa-trash-can w-6"></i> Factory Reset</span>
                     </button>
                 </div>
+
+                <!-- About Developer Section Card -->
+                <div class="glass-panel rounded-[32px] p-6 space-y-5">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent shadow-glow-stand">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg leading-tight">About Developer</h3>
+                            <p class="text-xs text-zinc-400">Crafting high-quality experiences</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-zinc-950/50 rounded-2xl p-4 border border-white/5 space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-zinc-500 font-bold uppercase tracking-wider">Developer</span>
+                            <span class="text-sm font-extrabold text-white">Sachin Dhisle</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-zinc-500 font-bold uppercase tracking-wider">Role</span>
+                            <span class="text-sm font-semibold text-zinc-300">Independent Developer</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-zinc-500 font-bold uppercase tracking-wider">App</span>
+                            <span class="text-sm font-extrabold text-accent">FitTrack Pro Ultra</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-zinc-500 font-bold uppercase tracking-wider">Version</span>
+                            <span class="text-xs font-mono font-bold text-ringExercise bg-ringExercise/10 border border-ringExercise/20 px-2.5 py-0.5 rounded-full">1.0.0</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-zinc-500 font-bold uppercase tracking-wider">Origin</span>
+                            <span class="text-sm font-semibold text-zinc-300 flex items-center gap-1">Made with <i class="fa-solid fa-heart text-red-500"></i> in India</span>
+                        </div>
+                        
+                        <div class="text-center text-[10px] text-zinc-600 border-t border-white/5 pt-3 mt-1">
+                            &copy; 2026 Sachin Dhisle. All Rights Reserved.
+                        </div>
+                    </div>
+
+                    <!-- Interactive Glassmorphic Links -->
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <a href="https://sachindhisle.com" target="_blank" class="flex items-center justify-center gap-2 p-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-xs font-bold transition-all hover:scale-[1.01] active:scale-95">
+                            <i class="fa-solid fa-globe text-accent"></i> Website
+                        </a>
+                        <a href="https://instagram.com/sachindhisle" target="_blank" class="flex items-center justify-center gap-2 p-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-xs font-bold transition-all hover:scale-[1.01] active:scale-95">
+                            <i class="fa-brands fa-instagram text-pink-500"></i> Instagram
+                        </a>
+                        <a href="https://github.com/sachindhisle" target="_blank" class="flex items-center justify-center gap-2 p-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-xs font-bold transition-all hover:scale-[1.01] active:scale-95">
+                            <i class="fa-brands fa-github text-white"></i> GitHub
+                        </a>
+                        <button onclick="App.Router.showToast('Privacy Policy', 'Displaying Privacy Agreement terms...')" class="flex items-center justify-center gap-2 p-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-xs font-bold transition-all hover:scale-[1.01] active:scale-95 text-left">
+                            <i class="fa-solid fa-shield-halved text-blue-400"></i> Privacy Policy
+                        </button>
+                        <button onclick="App.Router.showToast('Rate App', 'Thank you for your rating and feedback!')" class="flex items-center justify-center gap-2 p-3.5 rounded-xl bg-ringExercise/5 hover:bg-ringExercise/10 border border-ringExercise/15 text-xs font-extrabold text-ringExercise transition-all hover:scale-[1.01] active:scale-95 col-span-2">
+                            <i class="fa-solid fa-star"></i> Rate App
+                        </button>
+                        <a href="mailto:sachindhisle@example.com" class="flex items-center justify-center gap-2 p-3.5 rounded-xl bg-ringStand/5 hover:bg-ringStand/10 border border-ringStand/15 text-xs font-extrabold text-ringStand transition-all hover:scale-[1.01] active:scale-95 col-span-2">
+                            <i class="fa-solid fa-envelope"></i> Contact Developer
+                        </a>
+                    </div>
+                </div>
             </section>
         </main>
 
@@ -527,6 +589,59 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- PREMIUM SHARE STORY SHEET OVERLAY (Instagram Story & WhatsApp Status Format) -->
+    <div id="share-modal" class="fixed inset-0 z-[1000] bg-black/90 backdrop-blur-md flex flex-col justify-end md:justify-center items-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="w-full max-w-md bg-zinc-950 border border-white/10 rounded-[32px] p-6 flex flex-col max-h-[92vh] overflow-y-auto no-scrollbar shadow-2xl space-y-6">
+            
+            <!-- Header Controls -->
+            <div class="flex justify-between items-center border-b border-white/5 pb-4">
+                <div>
+                    <h3 class="font-black text-xl bg-gradient-to-r from-white to-zinc-400 text-gradient">Share Story</h3>
+                    <p class="text-xs text-zinc-400">Strava & Apple Fitness Premium Templates</p>
+                </div>
+                <button onclick="App.Social.closeShareModal()" class="w-9 h-9 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Canvas Visual Preview Container (Preserving original aspect layout inside viewport) -->
+            <div class="flex justify-center items-center py-3 bg-zinc-900/40 rounded-2xl border border-white/5 relative overflow-hidden">
+                <div class="w-[220px] h-[391px] relative rounded-xl overflow-hidden shadow-2xl border border-white/10">
+                    <canvas id="story-preview-canvas" width="540" height="960" class="w-full h-full object-cover"></canvas>
+                </div>
+            </div>
+
+            <!-- Style Selectors -->
+            <div class="space-y-3">
+                <label class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest block">Select Custom Aesthetic</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="App.Social.setTemplateStyle('cinematic')" id="btn-tmpl-cinematic" class="flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-accent bg-accent/10 text-white font-extrabold text-[11px] transition-all">
+                        <span class="w-5 h-5 rounded-full bg-gradient-to-tr from-ringMove via-accent to-ringStand"></span>
+                        Cinematic
+                    </button>
+                    <button onclick="App.Social.setTemplateStyle('athletic')" id="btn-tmpl-athletic" class="flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-transparent bg-zinc-900 hover:bg-zinc-850 text-zinc-400 font-bold text-[11px] transition-all">
+                        <span class="w-5 h-5 rounded-full bg-orange-600"></span>
+                        Athletic
+                    </button>
+                    <button onclick="App.Social.setTemplateStyle('cyberpunk')" id="btn-tmpl-cyberpunk" class="flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-transparent bg-zinc-900 hover:bg-zinc-850 text-zinc-400 font-bold text-[11px] transition-all">
+                        <span class="w-5 h-5 rounded-full bg-gradient-to-r from-ringExercise to-ringStand"></span>
+                        Cyberpunk
+                    </button>
+                </div>
+            </div>
+
+            <!-- Export Buttons -->
+            <div class="space-y-2.5 pt-1">
+                <button onclick="App.Social.executeShare()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-accent to-ringMove hover:opacity-90 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-[0_4px_25px_rgba(139,92,246,0.3)] transition-all transform active:scale-95">
+                    <i class="fa-solid fa-share-nodes"></i> Share To Social Apps
+                </button>
+                <button onclick="App.Social.executeDownload()" class="w-full py-3.5 rounded-2xl bg-zinc-900 hover:bg-zinc-850 border border-white/5 text-zinc-300 hover:text-white font-bold text-sm flex items-center justify-center gap-2 transition-all transform active:scale-95">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Save PNG to Camera Roll
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1162,101 +1277,402 @@
         };
 
         /* ==========================================
-           SOCIAL & STORY GENERATOR
+           6. SOCIAL & PREMIUM SHARE STORY SYSTEM
            ========================================== */
         App.Social = {
+            currentWorkout: null,
+            currentStyle: 'cinematic',
+
             shareWorkout: function(timestamp) {
                 const w = App.State.workouts.find(x => x.timestamp === timestamp);
                 if(!w) return;
+                
+                this.currentWorkout = w;
+                this.currentStyle = 'cinematic';
+                
+                // Open Share Sheet Modal UI
+                const modal = document.getElementById('share-modal');
+                modal.classList.remove('pointer-events-none', 'opacity-0');
+                
+                this.updateActiveTemplateUI();
+                this.renderPreview();
+                
+                App.Router.showToast("Premium Templates", "Select a social story template to preview.");
+            },
+            
+            closeShareModal: function() {
+                const modal = document.getElementById('share-modal');
+                modal.classList.add('pointer-events-none', 'opacity-0');
+            },
+            
+            setTemplateStyle: function(style) {
+                this.currentStyle = style;
+                this.updateActiveTemplateUI();
+                this.renderPreview();
+            },
+            
+            updateActiveTemplateUI: function() {
+                const styles = ['cinematic', 'athletic', 'cyberpunk'];
+                styles.forEach(s => {
+                    const btn = document.getElementById(`btn-tmpl-${s}`);
+                    if (s === this.currentStyle) {
+                        btn.classList.add('border-accent', 'bg-accent/10', 'text-white');
+                        btn.classList.remove('border-transparent', 'bg-zinc-900', 'text-zinc-400');
+                    } else {
+                        btn.classList.remove('border-accent', 'bg-accent/10', 'text-white');
+                        btn.classList.add('border-transparent', 'bg-zinc-900', 'text-zinc-400');
+                    }
+                });
+            },
+            
+            renderPreview: function() {
+                const canvas = document.getElementById('story-preview-canvas');
+                if (!canvas || !this.currentWorkout) return;
+                this.drawStory(canvas, this.currentWorkout, this.currentStyle, 0.5);
+            },
+            
+            drawStory: function(canvas, w, style, scale) {
+                const ctx = canvas.getContext('2d');
+                const width = canvas.width;
+                const height = canvas.height;
+                
+                ctx.clearRect(0, 0, width, height);
+                ctx.save();
+                
+                // 1. Draw Full Screen Premium Backgrounds
+                if (style === 'cinematic') {
+                    // Apple Fitness+ Cinematic Dark Gradient
+                    const bgGrad = ctx.createLinearGradient(0, 0, 0, height);
+                    bgGrad.addColorStop(0, '#04020a');
+                    bgGrad.addColorStop(0.5, '#0c071a');
+                    bgGrad.addColorStop(1, '#000000');
+                    ctx.fillStyle = bgGrad;
+                    ctx.fillRect(0, 0, width, height);
+                    
+                    // Ambient colorful neon spots
+                    const redGlow = ctx.createRadialGradient(0, height, 0, 0, height, 500 * scale);
+                    redGlow.addColorStop(0, 'rgba(255, 36, 83, 0.32)');
+                    redGlow.addColorStop(1, 'rgba(0,0,0,0)');
+                    ctx.fillStyle = redGlow;
+                    ctx.fillRect(0, 0, width, height);
 
-                App.Router.showToast("Generating Story...", "Creating your image.");
+                    const purpGlow = ctx.createRadialGradient(width, 100 * scale, 0, width, 100 * scale, 650 * scale);
+                    purpGlow.addColorStop(0, 'rgba(139, 92, 246, 0.28)');
+                    purpGlow.addColorStop(1, 'rgba(0,0,0,0)');
+                    ctx.fillStyle = purpGlow;
+                    ctx.fillRect(0, 0, width, height);
 
-                // Create a canvas to draw the Instagram/WhatsApp Story image (9:16 aspect ratio)
+                    const cyanGlow = ctx.createRadialGradient(width, height * 0.65, 0, width, height * 0.65, 450 * scale);
+                    cyanGlow.addColorStop(0, 'rgba(0, 214, 255, 0.2)');
+                    cyanGlow.addColorStop(1, 'rgba(0,0,0,0)');
+                    ctx.fillStyle = cyanGlow;
+                    ctx.fillRect(0, 0, width, height);
+                    
+                } else if (style === 'athletic') {
+                    // Strava Athletic Orange Glow (inspired by design in Screenshot 2026-06-27 233853.png)
+                    const bgGrad = ctx.createLinearGradient(0, 0, width, height);
+                    bgGrad.addColorStop(0, '#0c0805');
+                    bgGrad.addColorStop(1, '#010102');
+                    ctx.fillStyle = bgGrad;
+                    ctx.fillRect(0, 0, width, height);
+                    
+                    const orangeGlow = ctx.createRadialGradient(width / 2, height * 0.45, 0, width / 2, height * 0.45, 750 * scale);
+                    orangeGlow.addColorStop(0, 'rgba(234, 88, 12, 0.25)');
+                    orangeGlow.addColorStop(1, 'rgba(0,0,0,0)');
+                    ctx.fillStyle = orangeGlow;
+                    ctx.fillRect(0, 0, width, height);
+                    
+                } else if (style === 'cyberpunk') {
+                    // Cyberpunk Neon Glow (inspired by neon elements in Screenshot 2026-06-27 234645.png)
+                    const bgGrad = ctx.createLinearGradient(0, 0, 0, height);
+                    bgGrad.addColorStop(0, '#000000');
+                    bgGrad.addColorStop(0.5, '#040d12');
+                    bgGrad.addColorStop(1, '#010204');
+                    ctx.fillStyle = bgGrad;
+                    ctx.fillRect(0, 0, width, height);
+                    
+                    const cyberGlow1 = ctx.createRadialGradient(50 * scale, height * 0.35, 0, 50 * scale, height * 0.35, 550 * scale);
+                    cyberGlow1.addColorStop(0, 'rgba(164, 255, 0, 0.24)');
+                    cyberGlow1.addColorStop(1, 'rgba(0,0,0,0)');
+                    ctx.fillStyle = cyberGlow1;
+                    ctx.fillRect(0, 0, width, height);
+
+                    const cyberGlow2 = ctx.createRadialGradient(width - 50 * scale, height * 0.75, 0, width - 50 * scale, height * 0.75, 550 * scale);
+                    cyberGlow2.addColorStop(0, 'rgba(0, 214, 255, 0.22)');
+                    cyberGlow2.addColorStop(1, 'rgba(0,0,0,0)');
+                    ctx.fillStyle = cyberGlow2;
+                    ctx.fillRect(0, 0, width, height);
+                }
+                
+                // Fine grid wireframe lines for depth
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)';
+                ctx.lineWidth = 1 * scale;
+                const gridSize = 60 * scale;
+                for (let x = 0; x < width; x += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, height);
+                    ctx.stroke();
+                }
+                for (let y = 0; y < height; y += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(width, y);
+                    ctx.stroke();
+                }
+                
+                // 2. Draw Premium App branding
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'top';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                ctx.font = `800 ${28 * scale}px 'Inter', sans-serif`;
+                ctx.fillText('FITTRACK PRO ULTRA', width / 2, 80 * scale);
+                
+                // Decorative gradient dividing bar
+                const barGrad = ctx.createLinearGradient(width / 2 - 120 * scale, 0, width / 2 + 120 * scale, 0);
+                barGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+                barGrad.addColorStop(0.5, style === 'athletic' ? '#ea580c' : style === 'cyberpunk' ? '#a4ff00' : '#8b5cf6');
+                barGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                ctx.fillStyle = barGrad;
+                ctx.fillRect(width / 2 - 120 * scale, 122 * scale, 240 * scale, 3 * scale);
+                
+                // 3. Highlight Workout Title Type
+                if (style === 'athletic') {
+                    ctx.fillStyle = '#ea580c';
+                } else if (style === 'cyberpunk') {
+                    ctx.fillStyle = '#a4ff00';
+                } else {
+                    ctx.fillStyle = '#ff2453';
+                }
+                ctx.font = `900 ${84 * scale}px 'Inter', sans-serif`;
+                ctx.fillText(w.type.toUpperCase(), width / 2, 145 * scale);
+                
+                // 4. Date Tag
+                const dateStr = new Date(w.timestamp).toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                ctx.font = `700 ${22 * scale}px 'Inter', sans-serif`;
+                ctx.fillText(dateStr.toUpperCase(), width / 2, 240 * scale);
+                
+                // 5. Draw PR Achievement Emblem Badge
+                const badgeX = width / 2;
+                const badgeY = 350 * scale;
+                ctx.save();
+                ctx.translate(badgeX, badgeY);
+                
+                // Double concentric badge rings
+                ctx.beginPath();
+                ctx.arc(0, 0, 52 * scale, 0, Math.PI * 2);
+                ctx.strokeStyle = style === 'athletic' ? '#ea580c' : style === 'cyberpunk' ? '#a4ff00' : '#8b5cf6';
+                ctx.lineWidth = 3.5 * scale;
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.arc(0, 0, 45 * scale, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(15, 15, 18, 0.9)';
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+                ctx.lineWidth = 1 * scale;
+                ctx.stroke();
+                
+                // Draw Trophy icon emoji
+                ctx.font = `${30 * scale}px Arial`;
+                ctx.textBaseline = 'middle';
+                ctx.fillText('🏆', 0, 0);
+                ctx.restore();
+                
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                ctx.font = `900 ${18 * scale}px 'Inter', sans-serif`;
+                ctx.fillText('WORKOUT ACHIEVED', width / 2, 425 * scale);
+                
+                // 6. Statistics Cards (Glassmorphic Rounded Boxes)
+                const cardMargin = 40 * scale;
+                const cardWidth = width - (cardMargin * 2);
+                const cardHeight = 110 * scale;
+                const cardGap = 25 * scale;
+                
+                // Inner Glass card drawing helper
+                const drawGlassCard = (x, y, w, h, r) => {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.moveTo(x + r, y);
+                    ctx.arcTo(x + w, y, x + w, y + h, r);
+                    ctx.arcTo(x + w, y + h, x, y + h, r);
+                    ctx.arcTo(x, y + h, x, y, r);
+                    ctx.arcTo(x, y, x + w, y, r);
+                    ctx.closePath();
+                    
+                    ctx.fillStyle = 'rgba(24, 24, 27, 0.55)';
+                    ctx.fill();
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                    ctx.lineWidth = 1.5 * scale;
+                    ctx.stroke();
+                    ctx.restore();
+                };
+                
+                // Concentric Mini Ring generator helper
+                const drawConcentricRing = (cx, cy, r, sw, color, percent) => {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+                    ctx.lineWidth = sw;
+                    ctx.stroke();
+                    
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, r, -Math.PI / 2, (-Math.PI / 2) + (Math.PI * 2 * percent));
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = sw;
+                    ctx.lineCap = 'round';
+                    ctx.stroke();
+                    ctx.restore();
+                };
+                
+                // Draw 4 cards
+                const startY = 470 * scale;
+                for (let i = 0; i < 4; i++) {
+                    drawGlassCard(cardMargin, startY + i * (cardHeight + cardGap), cardWidth, cardHeight, 18 * scale);
+                }
+                
+                // Render stats texts on card layers
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'middle';
+                
+                // Card 1: Distance Metric
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+                ctx.font = `800 ${16 * scale}px 'Inter', sans-serif`;
+                ctx.fillText('DISTANCE COVERED', cardMargin + 25 * scale, startY + 30 * scale);
+                ctx.fillStyle = '#ffffff';
+                ctx.font = `900 ${40 * scale}px 'Inter', sans-serif`;
+                const dText = w.distanceKm > 0 ? `${w.distanceKm.toFixed(2)} KM` : '-- KM';
+                ctx.fillText(dText, cardMargin + 25 * scale, startY + 75 * scale);
+                ctx.font = `${32 * scale}px Arial`;
+                ctx.textAlign = 'right';
+                ctx.fillText('📍', cardMargin + cardWidth - 25 * scale, startY + 55 * scale);
+                
+                // Card 2: Active Energy
+                ctx.textAlign = 'left';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+                ctx.font = `800 ${16 * scale}px 'Inter', sans-serif`;
+                ctx.fillText('ACTIVE ENERGY', cardMargin + 25 * scale, startY + cardHeight + cardGap + 30 * scale);
+                ctx.fillStyle = '#ffffff';
+                ctx.font = `900 ${40 * scale}px 'Inter', sans-serif`;
+                ctx.fillText(`${Math.round(w.calories)} KCAL`, cardMargin + 25 * scale, startY + cardHeight + cardGap + 75 * scale);
+                ctx.font = `${32 * scale}px Arial`;
+                ctx.textAlign = 'right';
+                ctx.fillText('🔥', cardMargin + cardWidth - 25 * scale, startY + cardHeight + cardGap + 55 * scale);
+                
+                // Card 3: Duration
+                ctx.textAlign = 'left';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+                ctx.font = `800 ${16 * scale}px 'Inter', sans-serif`;
+                ctx.fillText('TIME DURATION', cardMargin + 25 * scale, startY + 2 * (cardHeight + cardGap) + 30 * scale);
+                ctx.fillStyle = '#ffffff';
+                ctx.font = `900 ${40 * scale}px 'Inter', sans-serif`;
+                const mins = Math.floor(w.duration / 60);
+                const secs = w.duration % 60;
+                ctx.fillText(`${mins}M ${secs}S`, cardMargin + 25 * scale, startY + 2 * (cardHeight + cardGap) + 75 * scale);
+                ctx.font = `${32 * scale}px Arial`;
+                ctx.textAlign = 'right';
+                ctx.fillText('⏱', cardMargin + cardWidth - 25 * scale, startY + 2 * (cardHeight + cardGap) + 55 * scale);
+                
+                // Card 4: Concentric Activity Progress Rings
+                ctx.textAlign = 'left';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+                ctx.font = `800 ${16 * scale}px 'Inter', sans-serif`;
+                ctx.fillText('FITNESS ACTIVITY RINGS', cardMargin + 25 * scale, startY + 3 * (cardHeight + cardGap) + 30 * scale);
+                
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                ctx.font = `bold ${22 * scale}px 'Inter', sans-serif`;
+                let paceStr = '-:--';
+                if (w.distanceKm > 0.01) {
+                    const p = (w.duration / 60) / w.distanceKm;
+                    if (p < 60) {
+                        const pm = Math.floor(p);
+                        const ps = Math.floor((p - pm) * 60);
+                        paceStr = `${pm}:${String(ps).padStart(2, '0')}`;
+                    }
+                }
+                ctx.fillText(`Pace: ${paceStr}/km   Steps: ${w.steps || 0}`, cardMargin + 25 * scale, startY + 3 * (cardHeight + cardGap) + 75 * scale);
+                
+                const rx = cardMargin + cardWidth - 65 * scale;
+                const ry = startY + 3 * (cardHeight + cardGap) + 55 * scale;
+                drawConcentricRing(rx, ry, 32 * scale, 7 * scale, '#ff2453', Math.min(w.calories / App.State.user.goalCal, 1));
+                drawConcentricRing(rx, ry, 21 * scale, 7 * scale, '#a4ff00', Math.min((w.duration / 60) / 30, 1));
+                drawConcentricRing(rx, ry, 10 * scale, 7 * scale, '#00d6ff', Math.min(w.steps / App.State.user.goalSteps, 1));
+                
+                // 7. Footer Meta Info
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+                ctx.font = `bold ${16 * scale}px 'Inter', sans-serif`;
+                ctx.fillText('MADE WITH ❤️ IN INDIA', width / 2, height - 120 * scale);
+                
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.font = `bold ${22 * scale}px 'Inter', sans-serif`;
+                ctx.fillText(`ATHLETE: ${(App.State.user.name || 'ATHLETE').toUpperCase()}`, width / 2, height - 80 * scale);
+                
+                ctx.fillStyle = style === 'athletic' ? '#ea580c' : style === 'cyberpunk' ? '#a4ff00' : '#8b5cf6';
+                ctx.font = `900 ${28 * scale}px 'Inter', sans-serif`;
+                ctx.fillText('FITTRACK PRO ULTRA', width / 2, height - 35 * scale);
+                
+                ctx.restore();
+            },
+            
+            executeDownload: function() {
+                if (!this.currentWorkout) return;
+                
+                // Instagram Story & WhatsApp Standard Resolution 1080 x 1920
                 const canvas = document.createElement('canvas');
                 canvas.width = 1080;
                 canvas.height = 1920;
-                const ctx = canvas.getContext('2d');
-
-                // Draw Dark Background
-                ctx.fillStyle = '#09090b';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                // Add Neon Gradient Overlay
-                const gradient = ctx.createLinearGradient(0, 0, 1080, 1920);
-                gradient.addColorStop(0, '#8b5cf6'); // Accent Purple
-                gradient.addColorStop(1, '#000000');
-                ctx.fillStyle = gradient;
-                ctx.globalAlpha = 0.4;
-                ctx.fillRect(0,0, canvas.width, canvas.height);
-                ctx.globalAlpha = 1.0;
-
-                // Draw Title
-                ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 70px sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('FITTRACK PRO ULTRA', 540, 250);
-
-                // Draw Workout Type
-                ctx.fillStyle = '#a4ff00'; // Neon Green
-                ctx.font = '900 140px sans-serif';
-                ctx.fillText(w.type.toUpperCase(), 540, 550);
-
-                // Draw Date
-                const dateStr = new Date(w.timestamp).toLocaleDateString(undefined, {weekday: 'long', month:'long', day:'numeric'});
-                ctx.fillStyle = '#a1a1aa';
-                ctx.font = '50px sans-serif';
-                ctx.fillText(dateStr, 540, 650);
-
-                // Draw Main Metric
-                ctx.fillStyle = '#ffffff';
-                const mainMetric = w.distanceKm > 0 ? `${w.distanceKm.toFixed(2)} KM` : `${Math.round(w.calories)} KCAL`;
-                ctx.font = '900 220px sans-serif';
-                ctx.fillText(mainMetric, 540, 1000);
-
-                // Draw Time
-                const mins = Math.floor(w.duration / 60);
-                const secs = w.duration % 60;
-                ctx.font = 'bold 100px sans-serif';
-                ctx.fillStyle = '#00d6ff'; // Cyan
-                ctx.fillText(`⏱ ${mins}M ${secs}S`, 540, 1300);
-
-                // Draw Username
-                ctx.fillStyle = '#ffffff';
-                ctx.font = 'italic 50px sans-serif';
-                ctx.fillText(`Completed by ${App.State.user.name || 'Athlete'}`, 540, 1750);
-
-                // Export and Trigger Share/Download
+                
+                this.drawStory(canvas, this.currentWorkout, this.currentStyle, 1.0);
+                
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `FitTrack_${this.currentWorkout.type}_PremiumStory.png`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                    App.Router.showToast("Story Exported", "Premium story card successfully saved.");
+                }, 'image/png');
+            },
+            
+            executeShare: async function() {
+                if (!this.currentWorkout) return;
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = 1080;
+                canvas.height = 1920;
+                
+                this.drawStory(canvas, this.currentWorkout, this.currentStyle, 1.0);
+                
                 canvas.toBlob(async (blob) => {
-                    const file = new File([blob], 'workout_story.png', { type: 'image/png' });
+                    const file = new File([blob], 'workout_story_card.png', { type: 'image/png' });
                     
-                    // Use Web Share API if supported (works beautifully on mobile devices)
                     if (navigator.canShare && navigator.canShare({ files: [file] })) {
                         try {
                             await navigator.share({
-                                title: 'My Workout',
-                                text: 'Just crushed my workout on FitTrack Pro! 💪',
-                                files: [file]
+                                files: [file],
+                                title: 'My Workout Performance Card',
+                                text: 'Crushed my activity targets on FitTrack Pro Ultra! 🚀 #FitnessGoal'
                             });
-                            App.Router.showToast("Success", "Shared successfully!");
+                            App.Router.showToast("Success", "Performance story shared!");
                         } catch(e) {
-                            console.log('Share canceled or failed');
+                            console.log('Share canceled or failed', e);
+                            this.executeDownload(); // Fallback trigger
                         }
                     } else {
-                        // Fallback: Download image for manual upload (Desktop or unsupported browsers)
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = `FitTrack_${w.type}_Story.png`;
-                        a.click();
-                        App.Router.showToast("Saved!", "Story image downloaded. Upload it to Insta/WhatsApp!");
-                        URL.revokeObjectURL(url);
+                        this.executeDownload();
+                        App.Router.showToast("Saved to Device", "Native sharing unsupported. Story card downloaded!");
                     }
-                });
+                }, 'image/png');
             }
         };
 
         /* ==========================================
-           6. PWA & BOOTSTRAP
+           7. PWA & BOOTSTRAP
            ========================================== */
         function setupPWA() {
             const manifest = {
